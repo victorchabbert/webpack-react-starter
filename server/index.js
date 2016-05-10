@@ -15,6 +15,8 @@ if (__DEV__) {
   const compiler = webpack(config);
   const middleware = webpackMiddleware(compiler, {
     publicPath: config.output.publicPath,
+    hot: true,
+    historyApiFallback: true,
     contentBase: 'src',
     stats: {
       colors: true,
@@ -22,8 +24,8 @@ if (__DEV__) {
       timings: true,
       chunks: false,
       chunkModules: false,
-      modules: false
-    }
+      modules: false,
+    },
   });
 
   app.use(middleware);
