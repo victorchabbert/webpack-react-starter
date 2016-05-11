@@ -16,14 +16,12 @@ const __DEV__ = process.env.NODE_ENV !== 'production';
 const port = __DEV__ ? 3000 : process.env.PORT || 8080;
 const app = express();
 
-// use api here
+// use api here (graphQl, mangodb, etc)
 
 if (__DEV__) {
   const compiler = webpack(config);
   const middleware = webpackMiddleware(compiler, {
     publicPath: config.output.publicPath,
-    hot: true,
-    historyApiFallback: true,
     contentBase: 'src',
     stats: {
       colors: true,
@@ -45,7 +43,7 @@ if (__DEV__) {
   // In production
   app.use(express.static(path.join(__dirname, '..', '/dist')));
   app.get('*', function response(req, res) {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+    res.sendFile(path.join(__dirname, '..', 'dist/index.html'));
   });
 }
 
