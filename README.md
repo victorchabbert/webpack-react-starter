@@ -1,6 +1,6 @@
 # A simple Webpack-React starter project
 
-Use this as a base project to build awesome things ** or even better, learn how this was built and how everything works ! **
+Use this as a base project to build awesome things **or even better, learn how this was built and how everything works!**
 
 ## Setup
 Clone or download this project.
