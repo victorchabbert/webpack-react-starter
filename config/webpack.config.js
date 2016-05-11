@@ -27,8 +27,12 @@ module.exports = {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+      },
+    }),
     new webpack.NoErrorsPlugin(),
-
   ],
   module: {
     loaders: [
@@ -37,8 +41,13 @@ module.exports = {
         loader: 'babel',
         exclude: /node_modules/,
         query: {
+          cacheDirectory: true,
+          plugins: [
+            'react-hot-loader/babel',
+            'transform-object-rest-spread',
+            'transform-class-properties',
+          ],
           presets: ['es2015', 'react'],
-          plugins: ['react-hot-loader/babel'],
         },
       },
     ],

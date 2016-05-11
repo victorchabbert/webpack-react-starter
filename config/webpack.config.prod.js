@@ -25,7 +25,11 @@ module.exports = {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.NoErrorsPlugin(),
-
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
   ],
   module: {
     loaders: [
@@ -34,6 +38,11 @@ module.exports = {
         loader: 'babel',
         exclude: /node_modules/,
         query: {
+          cacheDirectory: true,
+          plugins: [
+            'transform-object-rest-spread',
+            'transform-class-properties',
+          ],
           presets: ['es2015', 'react'],
         },
       },
