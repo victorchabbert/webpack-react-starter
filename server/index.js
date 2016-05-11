@@ -1,4 +1,9 @@
-/* eslint no-console: 0 */
+/*
+  eslint no-console: 0,
+  no-underscore-dangle: 0,
+  prefer-template: 0,
+  prefer-arrow-callback: 0
+*/
 
 const path = require('path');
 const express = require('express');
@@ -8,8 +13,10 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('../config/webpack.config.js');
 
 const __DEV__ = process.env.NODE_ENV !== 'production';
-const port = __DEV__ ? 3000 : process.env.PORT;
+const port = __DEV__ ? 3000 : process.env.PORT || 8080;
 const app = express();
+
+// use api here
 
 if (__DEV__) {
   const compiler = webpack(config);
@@ -35,15 +42,16 @@ if (__DEV__) {
     res.end();
   });
 } else {
-  app.use(express.static(__dirname + '/dist'));
+  // In production
+  app.use(express.static(path.join(__dirname, '..', '/dist')));
   app.get('*', function response(req, res) {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
   });
 }
 
-app.listen(port, '0.0.0.0', function onStart(err) {
+app.listen(port, '127.0.0.1', function onStart(err) {
   if (err) {
     console.log(err);
   }
-  console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+  console.info('==> 🌎 Listening on port %s. Open up http://127.0.0.1:%s/ in your browser.', port, port);
 });
